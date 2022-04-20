@@ -26,6 +26,7 @@ class ProductServiceImpl(
                 createdAt = Date(),
                 updatedAt = null
         )
+        productRepository.save(product)
 
         return ProductResponse(
                 id = product.id,
