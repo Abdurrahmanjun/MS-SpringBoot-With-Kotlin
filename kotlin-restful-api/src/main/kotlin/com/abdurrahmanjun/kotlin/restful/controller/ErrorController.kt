@@ -1,5 +1,6 @@
 package com.abdurrahmanjun.kotlin.restful.controller
 
+import com.abdurrahmanjun.kotlin.restful.error.NotFoundException
 import com.abdurrahmanjun.kotlin.restful.model.WebResponse
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
@@ -17,4 +18,12 @@ class ErrorController {
         )
     }
 
+    @ExceptionHandler(value = [NotFoundException::class])
+    fun notFound(notFoundException: NotFoundException) : WebResponse<String> {
+        return WebResponse(
+                code = 404,
+                status = "NOT FOUND",
+                data = "not found"
+        )
+    }
 }
