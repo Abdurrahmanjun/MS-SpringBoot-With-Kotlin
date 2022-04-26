@@ -3,7 +3,7 @@ package com.abdurrahmanjun.kotlin.restful.services.impl
 import com.abdurrahmanjun.kotlin.restful.entity.Product
 import com.abdurrahmanjun.kotlin.restful.error.NotFoundException
 import com.abdurrahmanjun.kotlin.restful.model.CreateProductRequest
-import com.abdurrahmanjun.kotlin.restful.model.ListProductRequest
+import com.abdurrahmanjun.kotlin.restful.model.ListRequest
 import com.abdurrahmanjun.kotlin.restful.model.ProductResponse
 import com.abdurrahmanjun.kotlin.restful.model.UpdateProductRequest
 import com.abdurrahmanjun.kotlin.restful.repository.ProductRepository
@@ -66,8 +66,8 @@ class ProductServiceImpl(
         productRepository.delete(product)
     }
 
-    override fun list(listProductRequest: ListProductRequest): List<ProductResponse> {
-        val page = productRepository.findAll(PageRequest.of(listProductRequest.page, listProductRequest.size))
+    override fun list(listRequest: ListRequest): List<ProductResponse> {
+        val page = productRepository.findAll(PageRequest.of(listRequest.page, listRequest.size))
         val products = page.get().collect(Collectors.toList())
 
         return products.map { convertProductToProductResponse(it) }

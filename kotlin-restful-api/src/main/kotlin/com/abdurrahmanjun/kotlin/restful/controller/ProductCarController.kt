@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class ProductController(val productService: ProductService) {
+class ProductCarController(val productService: ProductService) {
 
     @PostMapping(
-            value = ["/api/products"],
+            value = ["/api/car-products"],
             produces = ["application/json"],
             consumes = ["application/json"]
     )
-    fun createProduct(@RequestBody body: CreateProductRequest): WebResponse<ProductResponse> {
+    fun createProductCar(@RequestBody body: CreateProductRequest): WebResponse<ProductResponse> {
         val productResponse = productService.create(body)
         return WebResponse(
                 code = 200,
@@ -29,10 +29,10 @@ class ProductController(val productService: ProductService) {
     }
 
     @GetMapping(
-            value = ["/api/products/{idProduct}"],
+            value = ["/api/car-products/{idProduct}"],
             produces = ["application/json"],
     )
-    fun getProduct(@PathVariable("idProduct") id:String): WebResponse<ProductResponse> {
+    fun getProductCar(@PathVariable("idProduct") id:String): WebResponse<ProductResponse> {
         val productResponse = productService.get(id)
         return WebResponse(
                 code = 200,
@@ -42,11 +42,11 @@ class ProductController(val productService: ProductService) {
     }
 
     @PutMapping(
-            value = ["/api/products/{idProduct}"],
+            value = ["/api/car-products/{idProduct}"],
             produces = ["application/json"],
             consumes = ["application/json"],
     )
-    fun updateProduct(@PathVariable("idProduct") id:String,
+    fun updateProductCar(@PathVariable("idProduct") id:String,
                       @RequestBody updateProductRequest: UpdateProductRequest ): WebResponse<ProductResponse> {
         val productResponse = productService.update(id, updateProductRequest)
         return WebResponse(
@@ -57,10 +57,10 @@ class ProductController(val productService: ProductService) {
     }
 
     @DeleteMapping(
-            value = ["/api/products/{idProduct}"],
+            value = ["/api/car-products/{idProduct}"],
             produces = ["application/json"],
     )
-    fun deleteProduct(@PathVariable("idProduct") id:String): WebResponse<String> {
+    fun deleteProductCar(@PathVariable("idProduct") id:String): WebResponse<String> {
         productService.delete(id)
         return WebResponse(
                 code = 200,
@@ -70,10 +70,10 @@ class ProductController(val productService: ProductService) {
     }
 
     @GetMapping(
-            value = ["/api/products"],
+            value = ["/api/car-products"],
             produces = ["application/json"],
     )
-    fun listProduct(@RequestParam(value = "size", defaultValue = "10") size: Int,
+    fun listProductCar(@RequestParam(value = "size", defaultValue = "10") size: Int,
                     @RequestParam(value = "page", defaultValue = "0") page: Int): WebResponse<List<ProductResponse>> {
         val request = ListRequest(size,page)
         val productResponse = productService.list(request)
